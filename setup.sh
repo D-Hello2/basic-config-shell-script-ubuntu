@@ -80,4 +80,4 @@ echo "ok"
 else
 echo "please input y/n"
 
-done
+fi
