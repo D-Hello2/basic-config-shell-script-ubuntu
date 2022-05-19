@@ -25,6 +25,7 @@ sleep 1
 
 read -p "Hostname: " hostnameinput
 sudo hostnamectl set-hostname $hostnameinput
+exec bash
 echo ""
 sleep 1
 
