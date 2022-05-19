@@ -68,13 +68,13 @@ sleep 1
 done
 
 read -p "do you want to update the system and install some packages? (y/n) : " update1
-if [ $update1 == "y" && $update1 == "Y" ] 
+if [ $update1 == "y" || $update1 == "Y" ]; then 
 read -p "name packages ( example: apache2 w3m ): " packages1
 echo "update"
 sudo apt update
 sudo apt install $packages1 -y
 
-elif [ $update1 == "n" && $update1 == "N" ]
+elif [ $update1 == "n" || $update1 == "N" ]; then
 echo "ok"
 
 else
