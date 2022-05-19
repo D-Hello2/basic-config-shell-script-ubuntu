@@ -61,20 +61,20 @@ echo "mapping host"
 for ii in {1..$numint};
 do
 sudo cat << EOF | sudo tee -a /etc/hosts
-$(hostname -I | awk '{print $ii}') $HOSTNAME 
+$(hostname -I | awk '{print $ii}') $(hostname) 
 EOF
 echo ""
 sleep 1
 done
 
 read -p "do you want to update the system and install some packages? (y/n) : " update1
-if [ $update1 == "y" || $update1 == "Y" ]; then 
+if [ $update1 == "y" ] || [ $update1 == "Y" ]; then 
 read -p "name packages ( example: apache2 w3m ): " packages1
 echo "update"
 sudo apt update
 sudo apt install $packages1 -y
 
-elif [ $update1 == "n" || $update1 == "N" ]; then
+elif [ $update1 == "n" ] || [ $update1 == "N" ]; then
 echo "ok"
 
 else
