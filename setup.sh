@@ -25,7 +25,6 @@ sleep 1
 
 read -p "Hostname: " hostnameinput
 sudo hostnamectl set-hostname $hostnameinput
-exec bash
 echo ""
 sleep 1
 
@@ -74,6 +73,8 @@ read -p "name packages ( example: apache2 w3m ): " packages1
 echo "update"
 sudo apt update
 sudo apt install $packages1 -y
+echo ""
+echo "done"
 
 elif [ $update1 == "n" ] || [ $update1 == "N" ]; then
 echo "ok"
@@ -82,3 +83,5 @@ else
 echo "please input y/n"
 
 fi
+
+exec bash
