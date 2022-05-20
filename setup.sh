@@ -76,15 +76,13 @@ sudo netplan apply
 echo ""
 sleep 1
 
-echo "mapping host"
-for ii in {1..$numint};
-do
+echo "mapping interface host, default use first interfaces"
 sudo cat << EOF | sudo tee -a /etc/hosts
-$(hostname -I | awk '{print $ii}') $(hostname) 
+$(hostname -I | awk '{print $1}') $(hostname) 
 EOF
 echo ""
 sleep 1
-done
+
 
 read -p "do you want to update the system and install some packages? (y/n) : " update1
 if [ $update1 == "y" ] || [ $update1 == "Y" ]; then 
