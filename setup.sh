@@ -10,6 +10,8 @@ sleep 1
 
 read -p "user: " userinput
 read -s -p "pw: " passinput
+echo ""
+sleep 1
 
 sudo adduser $userinput << EOF
 $passinput
@@ -29,15 +31,18 @@ echo ""
 sleep 1
 
 echo "setting ip address"
+sudo echo | sudo tee /etc/netplan/00-installer-config.yaml
 read -p "number of interfaces: " numint
+read -p "name primary interfaces to add gateway and dns ( example: enp0s3 ): " intprimary1
 
 for i in $(eval echo "{1..$numint}")
 do
 read -p "name interfaces: " int1
+
+if [ $intprimary1 == $int1 ]; then
 read -p "ip address ( example: 10.10.10.1/24 ): " ip1
 read -p "gateway: " gateway1
 read -p "dns: " dns1
-sudo echo | sudo tee /etc/netplan/00-installer-config.yaml
 sudo cat << EOF | sudo tee -a /etc/netplan/00-installer-config.yaml
 network:
   ethernets:
@@ -49,6 +54,19 @@ network:
       nameservers:
         addresses: [$dns1] 
 EOF
+
+else
+read -p "ip address ( example: 10.10.10.1/24 ): " ip1
+sudo cat << EOF | sudo tee -a /etc/netplan/00-installer-config.yaml
+network:
+  ethernets:
+    $int1:
+      dhcp4: no
+      addresses:
+        - $ip1
+EOF
+fi
+
 echo ""
 sleep 1
 done
