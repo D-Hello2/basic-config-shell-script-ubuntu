@@ -33,7 +33,7 @@ sleep 1
 echo "setting ip address"
 sudo echo | sudo tee /etc/netplan/00-installer-config.yaml
 read -p "number of interfaces: " numint
-read -p "name primary interfaces to add gateway and dns ( example: enp0s3 ): " intprimary1
+read -p "main interface name to add gateway and dns ( example: enp0s3 ): " intprimary1
 
 for i in $(eval echo "{1..$numint}")
 do
